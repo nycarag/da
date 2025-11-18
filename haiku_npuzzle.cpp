@@ -106,13 +106,6 @@ public:
         Show();
     }
 
-    void KeyDown(const char* bytes, int32) override {
-        if (bytes[0]=='3') SetSize(3);
-        else if (bytes[0]=='4') SetSize(4);
-        else if (bytes[0]=='5') SetSize(5);
-        else BWindow::KeyDown(bytes, 1);
-    }
-
     void MessageReceived(BMessage* msg) override {
         switch (msg->what) {
             case kMsgNewGame: NewGame(); break;
@@ -124,6 +117,15 @@ public:
             case kMsgCellClick: {
                 int32 r, c;
                 if (msg->FindInt32("r", &r) == B_OK && msg->FindInt32("c", &c) == B_OK) TryMove(r, c);
+                break;
+            }
+            case B_KEY_DOWN: {
+                const char* bytes = nullptr;
+                if (msg->FindString("bytes", &bytes) == B_OK && bytes) {
+                    if (bytes[0]=='3') SetSize(3);
+                    else if (bytes[0]=='4') SetSize(4);
+                    else if (bytes[0]=='5') SetSize(5);
+                }
                 break;
             }
             default: BWindow::MessageReceived(msg);
@@ -175,7 +177,7 @@ private:
             UpdateButtons();
             UpdateStatus();
             if (IsSolved()) {
-                BAlert* ok = new BAlert("Solved", "Chúc m?ng! B?n ğ? hoàn thành N-Puzzle.", "OK");
+                BAlert* ok = new BAlert("Solved", "ChÃºc má»«ng! Báº¡n Ä‘Ã£ hoÃ n thÃ nh N-Puzzle.", "OK");
                 ok->Go();
             }
         }
@@ -254,4 +256,3 @@ public:
 };
 
 int main(){ App().Run(); return 0; }
-
