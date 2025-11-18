@@ -177,7 +177,7 @@ private:
             UpdateButtons();
             UpdateStatus();
             if (IsSolved()) {
-                BAlert* ok = new BAlert("Solved", "Chúc mừng! Bạn đã hoàn thành N-Puzzle.", "OK");
+                BAlert* ok = new BAlert("Solved", "Hail your return, O Exalted Sovereign!", "OK");
                 ok->Go();
             }
         }
@@ -256,3 +256,4 @@ public:
 };
 
 int main(){ App().Run(); return 0; }
+
